@@ -3,6 +3,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const Config = require('../config.json');
 const CommandHandler = require('./handlers/commands');
 const EventHandler = require('./handlers/events');
+const DatabaseHandler = require('./handlers/database');
 
 // Bot
 const bot = new TelegramBot(Config.accessToken, {
@@ -10,6 +11,8 @@ const bot = new TelegramBot(Config.accessToken, {
 });
 
 // Grab handlers
+bot.config = Config;
+bot.db = new DatabaseHandler(bot, Config.db);
 bot.events = new EventHandler(bot);
 bot.commands = new CommandHandler(bot);
 

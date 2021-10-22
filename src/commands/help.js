@@ -11,7 +11,7 @@ module.exports = class {
     };
   }
 
-  run(msg) {
+  async run(msg) {
     const cmds = [];
     Object.keys(this.bot.commands.commands).forEach((name) => {
       const cmd = this.bot.commands.fetch(name);

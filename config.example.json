@@ -1,5 +1,9 @@
 {
   "accessToken": "",
+  "db": {
+    "name": "flavorsbsc",
+    "url": "mongodb://USERNAME:PASSWORD@mongo:27017/"
+  },
   "links": {
     "group": "https://t.me/GROUP",
     "bot": "https://t.me/BOT"
