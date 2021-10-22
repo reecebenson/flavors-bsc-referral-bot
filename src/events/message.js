@@ -27,8 +27,8 @@ class MessageEvent {
 
       switch (true) {
         case cmd.meta.channels.includes(msg.chat.type):
-          await cmd.run(msg, args);
           console.log(`[CMD] @${msg.from.username} executed "/${cmdText}" with arguments: ${args.join(' ') || 'n/a'}`);
+          await cmd.run(msg, args);
           break;
 
         default:
