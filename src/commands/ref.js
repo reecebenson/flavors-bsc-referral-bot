@@ -18,7 +18,7 @@ module.exports = class {
     // Check if we have an existing user reference
     const existing = await userRefs.find({ userId: from.id }).toArray();
     if (existing.length === 0) {
-      // TODO: Check expiry on user reference ?
+      // TODO: Check timestamp on user reference ?
 
       // Create a reference
       const userRef = uuid();

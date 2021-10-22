@@ -38,6 +38,7 @@ module.exports = class {
       { $set: { referrals: newReferrals }},
       { returnOriginal: true }
     );
+    
     return { ...referral, referrals: newReferrals };
   }
 

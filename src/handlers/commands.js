@@ -30,7 +30,7 @@ class CommandHandler {
 
   fetch(name) {
     if (!Object.keys(this.commands).includes(name.toLowerCase())) return null;
-    return this.commands[name];
+    return this.commands[name.toLowerCase()];
   }
 }
 
