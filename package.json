@@ -1,0 +1,25 @@
+{
+  "name": "flavors-bsc-referral-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "start": "npm install && nodemon --watch src src/bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reecebenson/flavors-bsc-referral-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reecebenson/flavors-bsc-referral-bot/issues"
+  },
+  "homepage": "https://github.com/reecebenson/flavors-bsc-referral-bot#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.54.0"
+  }
+}

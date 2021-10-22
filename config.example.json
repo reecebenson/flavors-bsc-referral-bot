@@ -1,0 +1,17 @@
+{
+  "accessToken": "",
+  "links": {
+    "group": "https://t.me/GROUP",
+    "bot": "https://t.me/BOT"
+  },
+  "settings": {
+    "startDate": "MM/DD/YYYY",
+    "runningDays": 14,
+    "maxPointsPerDay": 5,
+    "charThreshold": 0
+  },
+  "admins": {
+    "superPassword": "password",
+    "users": []
+  }
+}
