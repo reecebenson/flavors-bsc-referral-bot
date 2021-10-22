@@ -17,8 +17,8 @@ module.exports = class {
       const cmd = this.bot.commands.fetch(name);
       
       if (
-        (isAdmin(msg.from.id) && cmd.meta.adminOnly) ||
-        !cmd.meta.adminOnly
+        ((isAdmin(msg.from.id) && cmd.meta.adminOnly) ||
+        !cmd.meta.adminOnly) && !cmd.meta.hidden
       ) {
         cmds.push(`/${name} - ${cmd.meta.description || 'no description'}`);
       }
