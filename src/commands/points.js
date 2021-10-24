@@ -21,7 +21,7 @@ module.exports = class {
     const mine = referrals.shift();
     points = (mine.referrals || []).length;
     mine.referrals.forEach((referral) => {
-      points += referral.messageCount;
+      points += referral.messages.length;
     });
     return points;
   }

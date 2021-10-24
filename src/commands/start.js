@@ -29,7 +29,7 @@ module.exports = class {
       {
         userId: uid,
         referralTime: +new Date(),
-        messageCount: 0
+        messages: []
       }
     ];
 

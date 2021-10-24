@@ -8,10 +8,38 @@ class MessageEvent {
     };
   }
 
+  async incrementExistingReferral(uid) {
+    const db = this.bot.db.fetch();
+    const userRefs = db.collection('user_references');
+
+    const referrals = await userRefs.find({ referrals: { $elemMatch: { userId: uid }}}).toArray();
+    if (referrals.length === 0) return null;
+
+    const referral = referrals.shift();
+    return await userRefs.updateOne(
+      { referenceToken: referral.referenceToken },
+      { $set: { referrals: referral.referrals.map((r) => {
+        if (r.userId !== uid) return r;
+
+        // Check if they've already got the threshold for messages
+        if (r.messages.filter((m) => m.msgTime >= (+new Date() - (86400 * 1000))).length >= this.bot.config.settings.maxPointsPerDay) {
+          return r;
+        }
+
+        // Add new message
+        return {
+          ...r,
+          messages: [...r.messages, {msgTime: +new Date()}]
+        };
+      }) }},
+      { returnOriginal: true }
+    );
+  }
+
   async run(msg) {
     try {
-      // Regular text check
-      // TODO
+      // Increase referral message counts if a referral exists
+      await this.incrementExistingReferral(msg.from.id);
       
       // Command check
       if (msg.text.substr(0, 1) !== '/') return;
