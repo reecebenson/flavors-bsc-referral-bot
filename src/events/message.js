@@ -51,7 +51,11 @@ class MessageEvent {
       if (!msg.text || msg.text.substr(0, 1) !== '/') return;
       
       const args = msg.text.slice(1).trim().split(/ +/g);
-      const cmdText = args.shift().toLowerCase();
+      let cmdText = args.shift().toLowerCase();
+      if (cmdText.endsWith('@flavors_referral_bot')) {
+        // Remove bot mention when clicking commands in a group chat
+        cmdText = cmdText.replace('@flavors_referral_bot', '');
+      }
       const cmd = this.bot.commands.fetch(cmdText);
       
       if (!cmd) return;
