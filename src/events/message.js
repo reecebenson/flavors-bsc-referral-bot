@@ -12,7 +12,11 @@ class MessageEvent {
     const db = this.bot.db.fetch();
     const userRefs = db.collection('user_references');
 
-    const referrals = await userRefs.find({ referrals: { $elemMatch: { userId: uid }}}).toArray();
+    const referrals = await userRefs.find({
+      referrals: {
+        $elemMatch: { userId: uid }
+      }
+    }).toArray();
     if (referrals.length === 0) return null;
 
     const referral = referrals.shift();

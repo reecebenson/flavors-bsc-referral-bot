@@ -23,11 +23,37 @@ module.exports = class {
     mine.referrals.forEach((referral) => {
       points += referral.messages.length;
     });
+    console.log('points:', points);
     return points;
   }
 
-  async run(msg) {
-    const points = await this.getMyPoints(msg.from.id);
-    this.bot.sendMessage(msg.chat.id, `You have ${points} point${points === 1 ? '' : 's'}.`);
+  async getUserPoints(name) {
+    const db = this.bot.db.fetch();
+    const userRefs = db.collection('user_references');
+    const referrals = await userRefs.find({
+      "$or": [
+        {userName: name.toLowerCase()},
+        {userName: name.substring(0, 1).toLowerCase()}
+      ]
+    }).toArray();
+    if (referrals.length === 0) {
+      return null;
+    }
+
+    const referral = referrals.shift();
+    const points = await this.getMyPoints(referral.userId);
+    return points;
+  }
+
+  async run(msg, args) {
+    const filter = args.shift();
+    if (!filter) {
+      const points = await this.getMyPoints(msg.from.id);
+      return this.bot.sendMessage(msg.chat.id, `You have ${points} point${points === 1 ? '' : 's'}.`);
+    }
+
+    const points = await this.getUserPoints(filter);
+    if (points === null) return this.bot.sendMessage(msg.chat.id, `Unable to find points for: ${filter}.`);
+    return this.bot.sendMessage(msg.chat.id, `${filter} has ${points} point${points === 1 ? '' : 's'}.`);
   }
 };

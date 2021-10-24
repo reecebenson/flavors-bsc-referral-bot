@@ -6,7 +6,7 @@ module.exports = class {
     this.meta = {
       name: "ref",
       description: "Get your unique reference link.",
-      channels: ['private'],
+      channels: ['private', 'supergroup'],
       adminOnly: false
     };
   }
