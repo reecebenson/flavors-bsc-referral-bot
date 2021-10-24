@@ -23,7 +23,6 @@ module.exports = class {
     mine.referrals.forEach((referral) => {
       points += referral.messages.length;
     });
-    console.log('points:', points);
     return points;
   }
 
