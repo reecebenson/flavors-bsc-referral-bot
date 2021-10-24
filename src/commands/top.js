@@ -28,6 +28,6 @@ module.exports = class {
       return this.bot.sendMessage(msg.chat.id, `Top 10 Leaderboard\n\n${text.slice(0, 10).join('\n')}`);
     }
 
-    this.bot.sendMessage(msg.chat.id, "Top 10 Leaderboard\n\nNo one has made any referrals yet. Get started by typing /ref in the chat.");
+    this.bot.sendMessage(msg.chat.id, "Top 10 Leaderboard\n\nNo one has made any referrals yet.\nGet started by typing /ref in the chat.");
   }
 };
