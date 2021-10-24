@@ -3,7 +3,7 @@ module.exports = class {
     this.bot = bot;
     this.meta = {
       name: "top",
-      description: "Shows the Top X members of the referral leaderboard",
+      description: "Shows the Top 10 members of the referral leaderboard",
       channels: ['private', 'supergroup'],
       adminOnly: false
     };
@@ -23,6 +23,6 @@ module.exports = class {
   async run(msg) {
     const referrals = await this.getReferrals();
     const text = referrals.map((ref) => `@${ref.userName} | ${ref.referrals.length + ref.referrals.map((r) => r.messages.length).reduce((a, b) => a + b)} points`);
-    this.bot.sendMessage(msg.chat.id, `Top Leaderboard\n\n${text.join('\n')}`);
+    this.bot.sendMessage(msg.chat.id, `Top Leaderboard\n\n${text.slice(0, 10).join('\n')}`);
   }
 };
