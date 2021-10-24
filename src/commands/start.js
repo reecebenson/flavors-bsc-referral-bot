@@ -17,10 +17,19 @@ module.exports = class {
     // Check if we have an existing user reference
     const existing = await userRefs.find({ referenceToken: refToken }).toArray();
     if (existing.length === 0) return null;
-
+    
     // Check if the referral has already had this user referred
     const referral = existing.shift();
     const existingUserRef = (referral.referrals || []).find((ref) => ref.userId === uid);
+
+    // Check if this user is referring themselves like dickheads
+    if (referral.userId === uid) {
+      return {
+        error: 'You cannot refer yourself.'
+      };
+    }
+
+    // Return existing referral
     if (existingUserRef) return referral;
 
     // Add this user to the referral
@@ -48,6 +57,10 @@ module.exports = class {
 
     // User joined via referral
     const ref = await this.findRef(msg.from.id, token);
+    if (ref.error) {
+      return this.bot.sendMessage(msg.chat.id, ref.error);
+    }
+
     this.bot.sendMessage(
       msg.chat.id,
       `You have been referred to Flavors BSC by @${ref.userName}.\n\nYou can now join the Telegram by clicking the link below:\n${this.bot.config['links']['group']}`
