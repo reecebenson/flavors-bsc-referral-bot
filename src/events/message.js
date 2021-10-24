@@ -39,10 +39,12 @@ class MessageEvent {
   async run(msg) {
     try {
       // Increase referral message counts if a referral exists
-      await this.incrementExistingReferral(msg.from.id);
+      if (msg.text && msg.text.length >= this.bot.config.settings.charThreshold) {
+        await this.incrementExistingReferral(msg.from.id);
+      }
       
       // Command check
-      if (msg.text.substr(0, 1) !== '/') return;
+      if (!msg.text || msg.text.substr(0, 1) !== '/') return;
       
       const args = msg.text.slice(1).trim().split(/ +/g);
       const cmdText = args.shift().toLowerCase();
