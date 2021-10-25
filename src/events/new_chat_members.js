@@ -7,7 +7,7 @@ class NewMemberEvent {
   }
 
   async run(ctx) {
-    console.log('Found new chat member:', ctx);
+    // console.log('Found new chat member:', ctx);
   }
 };
 

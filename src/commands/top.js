@@ -15,14 +15,14 @@ module.exports = class {
     const referrals = await userRefs.find({}).toArray();
     return referrals.sort(
       (a, b) => 
-        (b.referrals.length + b.referrals.map((r) => r.messages.length).reduce((a, b) => a + b))
-          - (a.referrals.length + a.referrals.map((r) => r.messages.length).reduce((a, b) => a + b))
+        (b.referrals.length + b.referrals.map((r) => r.messages.length).reduce((a, b) => a + b), 0)
+          - (a.referrals.length + a.referrals.map((r) => r.messages.length).reduce((a, b) => a + b), 0)
     );
   }
 
   async run(msg) {
     const referrals = await this.getReferrals();
-    const text = referrals.map((ref) => `@${ref.userName} | ${ref.referrals.length + ref.referrals.map((r) => r.messages.length).reduce((a, b) => a + b)} points`);
+    const text = referrals.map((ref) => `@${ref.userName} | ${ref.referrals.length + ref.referrals.map((r) => r.messages.length).reduce((a, b) => a + b, 0)} points`);
 
     if (text.length > 0) {
       return this.bot.sendMessage(msg.chat.id, `Top 10 Leaderboard\n\n${text.slice(0, 10).join('\n')}`);
